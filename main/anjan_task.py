@@ -73,8 +73,9 @@ class PlotFigure:
                 # df1[cat].value_counts().plot(subplots=True, figsize=(10, 8), layout=(2, 2)).get_figure().savefig(
                 #    folder_name + '/' + save + '_' + cat + '_' + str(self.week) + self.pic_format)
                 df1[cat].value_counts().plot(kind='bar', y=cat, color=self.my_colors,
-                                             use_index=True).get_figure().savefig(
+                                             use_index=True, title=cat).get_figure().savefig(
                     folder_name + '/' + save + '_' + cat + '_' + str(self.week) + self.pic_format)
+                df1[cat].title.set_text('First Plot')
                 # print(cat)
             # Numerical Column
             int_cols = df1.columns[df1.dtypes == "int64"].tolist()
@@ -82,7 +83,7 @@ class PlotFigure:
                 # df1.plot(subplots=True, figsize=(10, 8), layout=(2, 2)).get_figure().savefig(
                 #    folder_name + '/' + save + '_' + value + '_' + str(self.week) + self.pic_format)
                 df1.plot(kind='bar', y=value,
-                         use_index=True).get_figure().savefig(
+                         use_index=True, title=value).get_figure().savefig(
                     folder_name + '/' + save + '_' + value + '_' + str(self.week) + self.pic_format)
                 # print(cat)
         else:  # elif datetime.today().weekday() == 6:
@@ -100,12 +101,12 @@ class PlotFigure:
                             save = frame.first_valid_index().strftime(self.date_format)
                             for cat in cat_cols:
                                 frame[cat].value_counts().plot(kind='bar', y=cat, color=self.my_colors,
-                                                               use_index=True).get_figure().savefig(
+                                                               use_index=True, title=cat).get_figure().savefig(
                                     folder_name + '/' + save + '_' + cat + 'week' + str(_) + self.pic_format)
                             # Numerical Column
                             int_cols = frame.columns[frame.dtypes == "int64"].tolist()
                             for value in int_cols:
-                                frame.plot(kind='bar', y=value, use_index=True).get_figure().savefig(
+                                frame.plot(kind='bar', y=value, use_index=True, title=value).get_figure().savefig(
                                     folder_name + '/' + save + '_' + value + 'week' + str(_) + self.pic_format)
                     except (TypeError, AttributeError):
                         pass
@@ -127,8 +128,10 @@ class WordFile:
             self, date_check=None,
             para=None, slept=None, hours_slept=None,
             cigarette=None, sports=None, weather=None,
-            grade=None, prognosis=None, doc_date_format=None):
+            grade=None, prognosis=None, doc_date_format=None, user_wake_up_time=None):
         # print(date_check.strftime(self.date_format))
+        Hr = '%H'
+        mn = '%M'
         mylist = [f for f in glob.glob(self.figure + '/' + date_check.strftime(self.date_format) + '*')]
         # print(mylist)
         today = datetime.today()
@@ -145,7 +148,8 @@ class WordFile:
 
             self.doc.add_paragraph('')
             self.doc.add_paragraph(f'Slept:{slept}')
-            self.doc.add_paragraph(f'Slept time:{hours_slept}')
+            self.doc.add_paragraph(f'Wake time:{user_wake_up_time}')
+            self.doc.add_paragraph(f'Slept time:{hours_slept.strftime(Hr)}Hrs {hours_slept.strftime(mn)}min')   # 9Hrs 8min
             self.doc.add_paragraph(f'Cigarette:{cigarette}')
             self.doc.add_paragraph(f'Sports:{sports}')
             self.doc.add_paragraph(f'Weather:{weather}')
@@ -179,6 +183,7 @@ class WordFile:
             doc_name=None, dt_coll=None, data=None):
         df = pd.DataFrame(rows_name, columns=columns_name)
         df[dt_coll] = pd.to_datetime(df[dt_coll])
+        df[data.sleep] = pd.to_datetime(df[data.sleep], format="%H:%M")
         df = df.iloc[::-1]
         df = df.set_index(dt_coll)
         # print(df)
@@ -193,7 +198,7 @@ class WordFile:
         for index, rows in df_temp.iterrows():
             # print(df.loc[index])
             # print(df.loc[index][data.sleep])
-            # print('sleep time', df.loc[index][data.sleep])
+            # print('sleep time', df.loc[index][data.sleep].strftime('%H:%M'))
             # print('Wake time', df.loc[index][data.wake_time])
             # print(df.loc[index][data.sleep].strptime("%H:%M")-df.loc[index][data.wake_time].strptime("%H:%M"))
             docs = self.add_content(
@@ -202,8 +207,9 @@ class WordFile:
                     # para=df.loc[index][data.para],  # place holder for the row para
                     grade=df.loc[index][data.answer],
                     prognosis=df_temp.loc[index][data.prediction],
-                    slept=df.loc[index][data.sleep],
-                    hours_slept=df.loc[index][data.wake_time],
+                    slept=df.loc[index][data.bedtime],
+                    user_wake_up_time=df.loc[index][data.wake_time],
+                    hours_slept=df.loc[index][data.sleep],
                     cigarette=df.loc[index][data.smoke],
                     sports=df.loc[index][data.sport],
                     weather=df.loc[index][data.temp],)
