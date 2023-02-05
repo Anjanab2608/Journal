@@ -1,10 +1,10 @@
 app_name = 'Journal'
 
-dB_path = 'main/database/Predictions.db'
+dB_path = 'database\Predictions.db'
 week_check = 21
-fig = 'main/figures'
-media = 'main/media'
-doc_name = 'journal.docx'
+fig = 'figures'
+media = 'media'
+doc_name = 'journal1.docx'
 pic_format = '.jpg'
 doc_date_format = '%A, %d. %b %Y'
 
@@ -19,14 +19,17 @@ sport = 'played_sport'
 temp = 'temp_yesterday'
 alcohol = 'drank_alcohol'
 sleep = 'hours_slept'
+
 bedtime = 'user_bedtime'
 wake_time = 'user_wake_up_time'
-answer = 'predicted'
+answer = 'day_answer'
+prediction = 'prediction'
 para = 'para'
 
+
 # Credentials
-cred = 'main/cred/credentials.json'
-google_cred = 'main/cred/google-drive-credentials.json'
+cred = 'Credentials\credentials.json'
+google_cred = 'Credentials\google-drive-credentials.json'
 scope = ['https://www.googleapis.com/auth/drive']
 
 real_file_id = '1jqPGS_-Tk1ApjUKq_M6ByNKpwZL80Cn2'
