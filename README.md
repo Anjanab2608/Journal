@@ -14,6 +14,10 @@ Classification model is implemented to predict the user opinion about the day: g
 ## TASK 4: VISUALIZATION
 ## TASK 5: WORD FILE EDIT
 
+## Activating Conda 
+
+conda activate <conda_env_name>
+
 ## Installation
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.

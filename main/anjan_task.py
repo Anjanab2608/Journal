@@ -140,7 +140,6 @@ class WordFile:
             self.doc.add_heading(date_check.strftime(doc_date_format), 1)
             if para:
                 self.doc.add_paragraph(para)
-                # self.doc.add_paragraph.add_run('...')
             else:
                 self.doc.add_paragraph('...')
 
