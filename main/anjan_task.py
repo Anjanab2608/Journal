@@ -200,8 +200,8 @@ class WordFile:
                     doc_date_format=data.doc_date_format,
                     date_check=df.loc[[index]].index.item(),  # [data.date],
                     # para=df.loc[index][data.para],  # place holder for the row para
-                    # grade=df.loc[index][data.answer],
-                    # prognosis=df.loc[index][data.prog]
+                    grade=df.loc[index][data.answer],
+                    prognosis=df_temp.loc[index][data.prediction],
                     slept=df.loc[index][data.sleep],
                     hours_slept=df.loc[index][data.wake_time],
                     cigarette=df.loc[index][data.smoke],
