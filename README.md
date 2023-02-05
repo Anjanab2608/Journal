@@ -25,7 +25,7 @@ pip install -r requirements.txt
 ## Usage
 
 ```bash
-python3 main.py --noauth_local_webserver
+python3 ./main/main.py --noauth_local_webserver
 ```
 
 ## Contributing
