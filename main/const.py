@@ -2,28 +2,29 @@ app_name = 'Journal'
 
 dB_path = 'main/database/Predictions.db'
 week_check = 21
-fig = 'figures'
-media = 'media'
+fig = 'main/figures'
+media = 'main/media'
 doc_name = 'journal.docx'
 pic_format = '.jpg'
 doc_date_format = '%A, %d. %b %Y'
 
-column_name = {'name': [
-    'date',
-    'smoked_cigarette',
-    'played_sport',
-    'temp_yesterday',
-    'day_answer',
-    'drank_alcohol',
-    'hours_slept',
-    'user_bedtime',
-    'user_wake_up_time',
-    'prediction']
-}
-
+# SQL QUERIES
 DATA_QUERY = "SELECT * FROM DATA;"
-PREDICT_QUERY = "SELECT * FROM PREDICT;"
+PREDICT_QUERY = "SELECT * FROM PREDICTION;"
 
+# column names
+date = 'date'
+smoke = 'smoked_cigarette'
+sport = 'played_sport'
+temp = 'temp_yesterday'
+alcohol = 'drank_alcohol'
+sleep = 'hours_slept'
+bedtime = 'user_bedtime'
+wake_time = 'user_wake_up_time'
+answer = 'predicted'
+para = 'para'
+
+# Credentials
 cred = 'main/cred/credentials.json'
 google_cred = 'main/cred/google-drive-credentials.json'
 scope = ['https://www.googleapis.com/auth/drive']
