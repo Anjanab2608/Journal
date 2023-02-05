@@ -9,6 +9,7 @@ src/*.egg-info
 lib
 lib64
 .credentials
+.idea
 
 #
 main/cred/*
